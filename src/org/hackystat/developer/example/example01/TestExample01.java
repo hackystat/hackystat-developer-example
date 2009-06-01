@@ -38,6 +38,16 @@ public class TestExample01 {
     Example01 example = new Example01();
     assertEquals("Checking sensor data count", 2797, example.getSensorDataCount());
   }
+  
+  /**
+   * Tests the getDevEventCount() method. 
+   * @throws Exception If problems occur getting the data. 
+   */
+  @Test 
+  public void testGetDevEventDataCount() throws Exception {
+    Example01 example = new Example01();
+    assertEquals("Checking DevEvent count", 2216, example.getDevEventCount());
+  }
 
   
 

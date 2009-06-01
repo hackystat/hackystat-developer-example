@@ -3,11 +3,14 @@ package org.hackystat.developer.example.example01;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.hackystat.sensorbase.client.SensorBaseClient;
+import org.hackystat.sensorbase.resource.projects.jaxb.ProjectSummary;
+import org.hackystat.sensorbase.resource.projects.jaxb.SensorDataSummary;
 import org.hackystat.sensorbase.resource.sensordata.jaxb.SensorDataIndex;
 import org.hackystat.utilities.tstamp.Tstamp;
 
 /**
  * A simple program illustrating basic use of the SensorBaseClient.
+ * Requires sensorbaseclient.jar on the classpath. 
  * Uses credentials from http://code.google.com/p/hackystat/wiki/HackystatDemo.  
  * Similar to: http://csdl.ics.hawaii.edu/~johnson/screencasts/Hackystat.Programming.01.mov. 
  * @author Philip Johnson
@@ -38,7 +41,7 @@ public class Example01 {
   }
   
   /**
-   * Returns the number of SensorData instances for our example user during a two week period.
+   * Returns the number of SensorData instances over a two week period using SensorDataIndex.
    * @return The number of sensor data instances. 
    * @throws Exception If problems occur retrieving the data. 
    */
@@ -51,6 +54,30 @@ public class Example01 {
     // Illustrate one way to get this info (ProjectSummary is another).
     SensorDataIndex index = client.getProjectSensorData(user, project, startTime, endTime);
     return index.getSensorDataRef().size();
+  }
+
+  /**
+   * Returns the number of SensorData instances of type "DevEvent" over a two week period 
+   * using ProjectSummary.
+   * 
+   * @return The number of DevEvent instances. 
+   * @throws Exception If problems occur. 
+   */
+  public int getDevEventCount() throws Exception {
+    SensorBaseClient client = new SensorBaseClient(host, user, password);
+    client.authenticate();
+    String project = "Default";
+    XMLGregorianCalendar startTime = Tstamp.makeTimestamp("2008-07-01");
+    XMLGregorianCalendar endTime = Tstamp.makeTimestamp("2008-07-15");
+    // Could have done something similar using SensorDataIndex.
+    ProjectSummary summary = client.getProjectSummary(user, project, startTime, endTime);
+    int totalDevEvents = 0;
+    for (SensorDataSummary dataSummary : summary.getSensorDataSummaries().getSensorDataSummary()) {
+      if ("DevEvent".equals(dataSummary.getSensorDataType())) {
+        totalDevEvents += dataSummary.getNumInstances().intValue();
+      }
+    }
+    return totalDevEvents;
   }
 
 }

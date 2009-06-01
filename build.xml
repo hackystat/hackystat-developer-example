@@ -55,10 +55,14 @@
   
   <!-- Install Hackystat sensorbase libraries. -->
   <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat/sensorbase/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="sensorbase" transitive="false" type="jar"/>
+  <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat/sensorshell/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="shell" transitive="false" type="jar"/>
+  <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat/dailyprojectdata/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="dailyprojectdata" transitive="false" type="jar"/>
   
   <!-- The compile classpath is useful to many tools. -->
   <path id="compile.classpath">
-    <fileset file="${lib.dir}/hackystat/sensorbase/sensorbaseclient.jar" />
+    <fileset file="${lib.dir}/hackystat/sensorbase/sensorbase.jar" />
+    <fileset file="${lib.dir}/hackystat/sensorshell/sensorshell.jar" />
+    <fileset file="${lib.dir}/hackystat/dailyprojectdata/dailyprojectdata.jar" />
     <path refid="junit.path" />
   </path>
 
