@@ -3,21 +3,11 @@
     Makes sure system compiles and passes checkstyle, findbugs, and pmd.  
   </description>
     
-  <!-- 
-    The Hackystat integration build mechanism always calls invokes ant -f verify.build.xml
-    on all modules in the system. Normally, the goal is to fail the build if any problems
-    are detected. In the case of hackystat-sensor-example, we purposely inject errors as a
-    way of illustrating the behavior of the sensors.  Thus, the following properties are 
-    commented out so that the build will not fail when verify is called, even though errors
-    will be found.  
-
   <property name="pmd.failonerror" value="true"/>
   <property name="findbugs.failOnError" value="true"/>  
   <property name="checkstyle.failOnViolation" value="true"/> 
   <property name="junit.haltonfailure" value="true"/>
   
-  -->
-
   <import file="build.xml" />
   <import file="checkstyle.build.xml" />
   <import file="findbugs.build.xml" />
