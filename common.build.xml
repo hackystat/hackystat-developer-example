@@ -1,6 +1,6 @@
 <project name="common" default="default" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
-  A set of common Ant definitions for Hackystat. 
+  Boilerplate Ant code used by many Hackystat projects. 
   </description>
 
   <!-- Basic directory structure. -->

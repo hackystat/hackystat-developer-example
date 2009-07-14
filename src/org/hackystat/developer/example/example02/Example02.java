@@ -27,6 +27,7 @@ public class Example02 {  //NOPMD Ignore recommendation to make this class a sin
     // See if the stored credentials are valid with the public sensorbase.
     boolean credentialsOK = SensorBaseClient.isRegistered(host, user, password);
     // Print out the results. 
-    System.out.println("User credentials are: " + (credentialsOK ? "OK." : "not OK."));
+    System.out.println("Example02: credentials are: " + (credentialsOK ? "OK." : "not OK."));
   }
+  
 }

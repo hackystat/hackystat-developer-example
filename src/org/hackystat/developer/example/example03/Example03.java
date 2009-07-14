@@ -34,5 +34,15 @@ public class Example03 {
     DevTimeDailyProjectData devtime = dpdClient.getDevTime(user, "Default", startTime);
     return devtime.getTotalDevTime().intValue();
   }
+  
+  /**
+   * An example main method to be invoked by the example03.jar file. 
+   * @param args Ignored. 
+   * @throws Exception If problems occur accessing the server. 
+   */
+  public static void main(String[] args) throws Exception {
+    Example03 example = new Example03();
+    System.out.println("Example03: DevTime is: " + example.getDevTime());
+  }
 
 }

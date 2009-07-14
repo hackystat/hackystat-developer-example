@@ -79,5 +79,15 @@ public class Example01 {
     }
     return totalDevEvents;
   }
+  
+  /**
+   * An example main method to be invoked by the example01.jar file. 
+   * @param args Ignored. 
+   * @throws Exception If problems occur accessing the server. 
+   */
+  public static void main(String[] args) throws Exception {
+    Example01 example = new Example01();
+    System.out.println("Example01: DevEventCount is: " + example.getDevEventCount());
+  }
 
 }

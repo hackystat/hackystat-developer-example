@@ -1,4 +1,4 @@
-<project name="stack.javancss" default="javancss" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="javancss" default="javancss" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
     Runs javancss on system
     Invocation: ant -f javancss.build.xml

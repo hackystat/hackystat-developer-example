@@ -1,4 +1,4 @@
-<project name="stack.sclc" default="sclc" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="sclc" default="sclc" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
     Runs sclc on system to generate information on size.
     Invocation: ant -f sclc.build.xml
