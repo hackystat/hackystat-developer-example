@@ -5,6 +5,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/hackystat/sensorbase/sensorbaseclient.jar"/>
 	<classpathentry kind="lib" path="lib/hackystat/sensorshell/sensorshell.jar"/>
-	<classpathentry kind="lib" path="lib/hackystat/dailyprojectdata/dailyprojectdata.jar"/>
+	<classpathentry kind="lib" path="lib/hackystat/dailyprojectdata/dailyprojectdata.jar" sourcepath="lib/hackystat/dailyprojectdata/hackystat-analysis-dailyprojectdata-source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/hackystat-developer-example/lib/hackystat/dailyprojectdata/hackystat-analysis-dailyprojectdata-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
