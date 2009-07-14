@@ -29,9 +29,8 @@
     </exec> 
   </target>
   
-  <target name="sclc.sensor" depends="sclc.install.xsl.file" description="Sends data to Hackystat via the XmlData sensor.">
-    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat/xmldata/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="xmldata" transitive="false" type="jar"/>
-
+  <target name="sclc.sensor" depends="sclc.install.xsl.file, install-sensors" description="Sends data to Hackystat via the XmlData sensor.">
+ 
      <!-- Transform the data into a format suitable for input to the hackystat xml data sensor. -->
      <xslt in="${sclc.dir}/size.xml" out="${sclc.dir}/hackystat-size.xml" style="${sclc.xsl.file}" />
 

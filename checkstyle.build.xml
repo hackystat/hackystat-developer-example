@@ -51,11 +51,7 @@
     </xslt>
   </target>
   
-  <target name="checkstyle.sensor"  description="Sends CodeIssue data to Hackystat using the Checkstyle Sensor.">
-    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat/ant/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="ant" transitive="false" type="jar"/>
-    <taskdef resource="antlib.xml" classpath="${lib.dir}/hackystat/ant/antsensors.jar" />
-
-    <!-- Send Checkstyle data to hackystat using the Checkstyle sensor. -->
+  <target name="checkstyle.sensor"  depends="install-sensors" description="Sends CodeIssue data to Hackystat using the Checkstyle Sensor.">
     <hacky-checkstyle verbose="${hackystat.verbose.mode}" failOnError="true">
       <datafiles>
         <fileset file="${checkstyle.dir}/checkstyle.xml" />
