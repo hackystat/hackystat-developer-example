@@ -1,4 +1,4 @@
-<project name="common" default="default" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="common" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
   Boilerplate Ant code used by many Hackystat projects. 
   </description>
