@@ -11,8 +11,8 @@
 
       <!-- This resolver is set up for retrieval of javamail (not currently needed for examples.) -->
       <url name="java.net" m2compatible="true">
-        <ivy pattern="http://download.java.net/maven/2/[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]" />
-        <artifact pattern="http://download.java.net/maven/2/[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]" />
+        <ivy pattern="http://download.java.net/maven/2/[organisation]/[module]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]" />
+        <artifact pattern="http://download.java.net/maven/2/[organisation]/[module]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]" />
       </url>
 
       <!-- This supports local publishing of jar files. See jar.build.xml --> 
