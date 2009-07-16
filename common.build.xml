@@ -73,8 +73,12 @@
     <delete dir="${build.dir}" />
     <delete dir="${basedir}/sandbox" />
   </target>
-  
-  <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
+
+  <target name="reallyclean" depends="clean" description="Delete build/ directory, top-level jar files, and lib/ directory.">
+    <delete dir="${lib.dir}" />
+  </target>
+
+	<target name="install-sensors" description="Installs the Ant and XmlData sensors.">
     <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat-sensors/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar"/>
     <taskdef resource="antlib.xml" classpath="${lib.dir}/hackystat/sensors/antsensors.jar" />
     <property name="hackystat-sensors.dir" location="${lib.dir}/hackystat/sensors/"/>
