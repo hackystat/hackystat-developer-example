@@ -78,7 +78,7 @@
           dest="${emma.echo.file}" usetimestamp="true"/>
    </target>
   
-  <target name="emma.sensor" depends="install-sensors" description="Sends Emma coverage data to Hackystat using the Emma sensor.">
+  <target name="emma.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends Emma coverage data to Hackystat using the Emma sensor.">
     <hacky-emma verbose="${hackystat.verbose.mode}" failOnError="true">
        <datafiles>
          <fileset file="${emma.dir}/coverage.xml"/>

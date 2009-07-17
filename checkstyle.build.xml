@@ -51,7 +51,8 @@
     </xslt>
   </target>
   
-  <target name="checkstyle.sensor"  depends="install-sensors" description="Sends CodeIssue data to Hackystat using the Checkstyle Sensor.">
+
+  <target name="checkstyle.sensor" depends="define-sensors" if="hackystat.enabled" description="Sends CodeIssue data to Hackystat using the Checkstyle Sensor.">
     <hacky-checkstyle verbose="${hackystat.verbose.mode}" failOnError="true">
       <datafiles>
         <fileset file="${checkstyle.dir}/checkstyle.xml" />

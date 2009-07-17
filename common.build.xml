@@ -33,6 +33,7 @@
   <available file="${ivy.jar.path}/ivy.jar" type="file" property="ivy.available" />
   <fail message="This package requires Ivy.  To install, invoke 'ant -f ivy.build.xml'." unless="ivy.available" />
   <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
+  <ivy:settings/>
 
   <!-- Make sure library.versions.properties is installed, which provides all library version numbers. -->
   <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties" />
@@ -55,17 +56,33 @@
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
 
   <!-- Hackystat sensor definitions and configuration. -->
+
+  <!--
+    You can change the default settings of the following two properties on the command line:
+       ant -Dhackystat.enable=false -f checkstyle.build.xml
+  -->
   <property name="hackystat.verbose.mode" value="false" />
-  <property name="hackystat.enable" value="false" />
-  <!-- define hackystat.enabled if hackystat.enable is true, so we can use it in an 'if' clause -->
+  <property name="hackystat.enable" value="true" />
+
+  <!-- define hackystat.enabled iff hackystat.enable is true, so we can use it in an 'if' clause -->
   <condition property="hackystat.enabled">
     <istrue value="${hackystat.enable}" />
   </condition>
-  
-  <target name="convertLineEndings" description="Makes line endings compatible with host platform.">
-    <fixcrlf srcdir="${basedir}" includes="*.build.xml" />
+
+  <property name="ant.lib.dir" location="${user.home}/.ant/lib" />
+  <target name="define-sensors" description="Checks to make sure antsensors.jar is installed. Fails build if absent, defines ant sensor tasks if present.">
+    <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
+    <fail message="Hackystat sensors not installed. Please invoke 'ant install-sensors'." unless="antsensors.available" />
+    <taskdef resource="antlib.xml" classpath="${ant.lib.dir}/antsensors.jar" />
   </target>
-  
+
+  <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
+    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
+    <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}"/>
+  </target>
+
+  <!-- Miscellaneous housekeeping targets -->
+
   <target name="clean" description="Delete build/ directory and top-level jar files.">
     <delete>
       <fileset dir="${basedir}" includes="*.jar" />
@@ -78,9 +95,8 @@
     <delete dir="${lib.dir}" />
   </target>
 
-	<target name="install-sensors" description="Installs the Ant and XmlData sensors.">
-    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat-sensors/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar"/>
-    <taskdef resource="antlib.xml" classpath="${lib.dir}/hackystat-sensors/antsensors.jar" />
-    <property name="hackystat-sensors.dir" location="${lib.dir}/hackystat-sensors/"/>
+  <target name="convertLineEndings" description="Makes line endings compatible with host platform.">
+    <fixcrlf srcdir="${basedir}" includes="*.build.xml" />
   </target>
+
 </project>

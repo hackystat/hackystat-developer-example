@@ -57,8 +57,8 @@
           out="${pmd.dir}/pmd-report-per-class.html" />
   </target>
   
-  <target name="pmd.sensor" depends="install-sensors" description="Sends CodeIssue data to Hackystat using the PMD sensor.">
-     <hacky-pmd verbose="${hackystat.verbose.mode}" retryAttempts="3" retryWaitInterval="5">
+  <target name="pmd.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends CodeIssue data to Hackystat using the PMD sensor.">
+     <hacky-pmd verbose="${hackystat.verbose.mode}">
        <datafiles>
          <fileset file="${pmd.dir}/pmd.xml" />
        </datafiles>

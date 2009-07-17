@@ -30,7 +30,7 @@
     <xslt in="${javancss.dir}/javancss.xml" style="${javancss.install.dir}/javancss2html.xsl" out="${javancss.dir}/javancss-default.html" />
   </target>
 
-  <target name="javancss.sensor" depends="install-sensors" description="Sends FileMetric complexity data to Hackystat using the JavaNCSS sensor.">
+  <target name="javancss.sensor" depends="define-sensors" if="hackystat.enabled" description="Sends FileMetric complexity data to Hackystat using the JavaNCSS sensor.">
     <hacky-javancss verbose="${hackystat.verbose.mode}" failOnError="true">
       <sourcefiles>
         <fileset dir="${src.dir}" includes="**/*.java" />

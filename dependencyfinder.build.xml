@@ -39,11 +39,9 @@
     <xslt style="${dependencyfinder.install.dir}/DependencyGraphToHTML.xsl" 
           in="${dependencyfinder.dir}/class2class.xml" out="${dependencyfinder.dir}/class2class/index.html" />
   </target>
-
  
-  <target name="dependencyfinder.sensor" depends="install-sensors" unless="dependencyfinder.disabled" description="Sends coupling data to Hackystat using the DependencyFinder sensor.">
- 
-     <hacky-dependencyfinder verbose="${hackystat.verbose.mode}" failOnError="true">
+  <target name="dependencyfinder.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends coupling data to Hackystat using the DependencyFinder sensor.">
+      <hacky-dependencyfinder verbose="${hackystat.verbose.mode}" failOnError="true">
        <datafiles>
          <fileset file="${dependencyfinder.dir}/class2class.xml"/>
        </datafiles>
