@@ -30,16 +30,16 @@
 
   <!-- Ivy download and configuration targets -->
   <property name="ivy.jar.path" location="${user.home}/.ivy2/ivyjar/" />
-  <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties"/>
+  <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties" />
   <property file="${library.versions.path}" />
   <available file="${ivy.jar.path}/ivy.jar" type="file" property="ivy.available" />
-  
+
   <target name="install-ivy" depends="download-ivy-if-necessary" description="Makes Ivy tasks available, downloads Ivy first if necessary.">
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
   </target>
 
   <target name="download-ivy-if-necessary" unless="ivy.available" description="Only downloads Ivy if necessary.">
-    <antcall target="download-ivy"/>
+    <antcall target="download-ivy" />
   </target>
 
   <target name="download-ivy" depends="download-library-versions-properties" description="Downloads ivy.jar and the library.versions.properties files.">
@@ -50,13 +50,13 @@
   <target name="download-library-versions-properties">
     <mkdir dir="${user.home}/.hackystat" />
     <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
-    <property file="${library.versions.path}"/>
+    <property file="${library.versions.path}" />
   </target>
-  
+
   <target name="clean-cache" description="Cleans the ivy cache">
-     <ivy:cleancache />
-   </target>
-    
+    <ivy:cleancache />
+  </target>
+
 
   <!-- Where to look for configuration files (Checkstyle, PMD, FindBugs, etc.) -->
   <property name="configfiles.url" value="http://hackystat.googlecode.com/svn/trunk/configfiles/" />
@@ -92,6 +92,7 @@
     <taskdef resource="antlib.xml" classpath="${ant.lib.dir}/antsensors.jar" />
   </target>
 
+  <!-- antsensors.jar cannot be automatically installed during a run due to a classpath problem in Restlet. We must require the user to invoke 'ant install-sensors'.-->
   <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
     <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
     <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
