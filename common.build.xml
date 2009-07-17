@@ -93,7 +93,7 @@
   </target>
 
   <!-- antsensors.jar cannot be automatically installed during a run due to a classpath problem in Restlet. We must require the user to invoke 'ant install-sensors'.-->
-  <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
+  <target name="install-sensors" depends="install-ivy" description="Installs the Ant and XmlData sensors.">
     <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
     <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
   </target>
