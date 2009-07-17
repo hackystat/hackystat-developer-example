@@ -32,11 +32,11 @@
 
   <!-- Make sure Ivy is installed. -->
   <import file="ivy.build.xml" />
-  <target name="install-ivy" depends="download-ivy" description="Downloads Ivy if not already available, defines antlib.xml">
+  <target name="install-ivy" depends="download-ivy" description="Downloads Ivy if not already available.">
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
   </target>
 
-  <target name="download-ivy" unless="ivy.available" description="Downloads Ivy if not already installed">
+  <target name="download-ivy" unless="ivy.available" description="Downloads Ivy.">
     <antcall target="install" />
   </target>
 
@@ -75,16 +75,14 @@
   </condition>
 
   <property name="ant.lib.dir" location="${user.home}/.ant/lib" />
-  <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
-
-	<target name="define-sensors" depends="install-sensors" description="Checks to make sure antsensors.jar is installed. installs if absent, defines ant sensor tasks.">
+  <target name="define-sensors" description="Checks to make sure antsensors.jar is installed. Fails build if absent, defines ant sensor tasks if present.">
+    <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
     <fail message="Hackystat sensors not installed. Please invoke 'ant install-sensors'." unless="antsensors.available" />
     <taskdef resource="antlib.xml" classpath="${ant.lib.dir}/antsensors.jar" />
   </target>
 
-  <target name="install-sensors" unless="ivy.available" description="Installs the Ant and XmlData sensors, unless already installed">
+  <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
     <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
-    <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
     <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
   </target>
 
