@@ -26,7 +26,6 @@
   <target name="verify-all" description="Runs (almost) all Ant targets, including sensor targets, to make sure build system is working properly.">
     <!-- Using antcall instead of depends parameter to work around emma's need to create fresh class files and instrument
   			 them, which hoses any other tasks coming after that -->
-    <antcall target="install" />
     <!-- Call Emma first to get its weirdness out of the way first -->
     <antcall target="emma" />
     <antcall target="clean" />

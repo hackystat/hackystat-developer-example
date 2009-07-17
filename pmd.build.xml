@@ -9,7 +9,9 @@
   
   <!-- Download PMD from Ivy if necessary. -->
   <property name="pmd.install.dir" location="${lib.dir}/pmd" />
-  <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="${pmd.version}" pattern="${lib.dir}/pmd/[artifact].[ext]" sync="true" inline="true" log="download-only" type="jar,report"/>
+  <target name="install-pmd" depends="install-ivy">
+    <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="${pmd.version}" pattern="${lib.dir}/pmd/[artifact].[ext]" sync="true" inline="true" log="download-only" type="jar,report"/>
+  </target>
 
   <property name="pmd.dir" location="${build.dir}/pmd" />
   <property name="pmd.failonerror" value="false" />
@@ -26,7 +28,7 @@
           depends="pmd.tool, pmd.report, pmd.sensor"
           description="Runs the PMD tool, report" />
 
-  <target name="pmd.tool" depends="pmd.install.rulesets.file"
+  <target name="pmd.tool" depends="install-pmd, pmd.install.rulesets.file"
           description="Runs PMD over the source code to check for problems.">
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
       <classpath>

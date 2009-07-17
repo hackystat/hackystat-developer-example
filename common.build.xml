@@ -28,12 +28,17 @@
   </condition>
   <fail message="This package requires Ant 1.7.1 or better; found ${ant.version}" unless="ant.1.7.available" />
 
+  <available file="${ivy.jar.path}/ivy.jar" type="file" property="ivy.available" />
+
   <!-- Make sure Ivy is installed. -->
   <import file="ivy.build.xml" />
-  <available file="${ivy.jar.path}/ivy.jar" type="file" property="ivy.available" />
-  <fail message="This package requires Ivy.  To install, invoke 'ant -f ivy.build.xml'." unless="ivy.available" />
-  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
-  <ivy:settings/>
+  <target name="install-ivy" depends="download-ivy" description="Downloads Ivy if not already available.">
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
+  </target>
+
+  <target name="download-ivy" unless="ivy.available" description="Downloads Ivy.">
+    <antcall target="install" />
+  </target>
 
   <!-- Make sure library.versions.properties is installed, which provides all library version numbers. -->
   <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties" />
@@ -78,7 +83,7 @@
 
   <target name="install-sensors" description="Installs the Ant and XmlData sensors.">
     <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
-    <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}"/>
+    <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
   </target>
 
   <!-- Miscellaneous housekeeping targets -->
