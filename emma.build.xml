@@ -26,7 +26,7 @@
     <mkdir dir="${emma.dir}" />
     <emma enabled="true">
       <instr instrpath="${build.dir}/classes" destdir="${build.dir}/classes" metadatafile="${emma.dir}/metadata.emma" merge="true" mode="overwrite">
-        <filter excludes="edu.hawaii.*.Test*" />
+        <filter excludes="org.hackystat.*.Test*" />
       </instr>
     </emma>
     <!-- Run JUnit with the instrumented class files. -->
